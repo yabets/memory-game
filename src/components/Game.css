@@ -1,0 +1,18 @@
+.Game {
+  width: 320px;
+  height: 320px;
+  margin: auto;
+  background: #ccc;
+  padding: 1rem;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+@media (min-width: 640px) {
+  .Game {
+    height: 480px;
+    width: 480px;
+  }
+}

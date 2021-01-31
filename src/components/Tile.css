@@ -1,0 +1,51 @@
+.Tile {
+  width: 64px;
+  height: 64px;
+  border-radius: 5px;
+  display: flex;
+  transition: transform 0.8s;
+
+  transform-style: preserve-3d;
+}
+
+.Tile:hover {
+  cursor: pointer;
+}
+
+.Tile--down {
+  background: black;
+}
+
+.Tile--active {
+  background: #47c3fc;
+  transform: rotateY(180deg);
+}
+
+.Tile--matched {
+  background: #a6ff00;
+  transform: rotateY(360deg);
+}
+
+.Tile--mismatched {
+  background: #ff3300;
+  transform: rotateY(180deg);
+}
+
+.Tile--matched:hover,
+.Tile--mismatched:hover {
+  cursor: not-allowed;
+}
+
+.Title__content {
+  font-size: 3rem;
+  display: inline-block;
+  margin: auto;
+  color: white;
+}
+
+@media (min-width: 640px) {
+  .Tile {
+    width: 96px;
+    height: 96px;
+  }
+}
