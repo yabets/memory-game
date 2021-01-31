@@ -47,7 +47,7 @@ const Game = ({ children }) => {
 
   useEffect(() => {
     if (mismatched.length === 2) removeMismatch();
-  }, [mismatched]);
+  });
 
   const removeMismatch = () => {
     return new Promise(() => {
