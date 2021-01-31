@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Tile from "./Tile";
+import Stat from "./Stat";
 import "./Game.css";
 import { generateTiles } from "../utilities";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -20,10 +21,11 @@ const Game = ({ children }) => {
   const [tiles, setTiles] = useState(generateTiles);
   const [up, setUptiles] = useState([]);
   const [mismatched, setMismatched] = useState([]);
+  const [moves, setMoves] = useState(0);
+  const [won, setWon] = useState(false);
 
   const onClick = (id) => {
     if (mismatched.length === 2) return;
-
     const tilesCopy = [...tiles];
     let upCopy = [...up];
     const mismatchedCopy = [];
@@ -33,12 +35,14 @@ const Game = ({ children }) => {
       upCopy.push(id);
       if (upCopy.length === 2) {
         checkOpenedTiles(upCopy[0], upCopy[1], tilesCopy, mismatchedCopy);
+        if (checkWin(tilesCopy)) setWon(true);
         upCopy = [];
       }
     }
     setTiles(tilesCopy);
     setUptiles(upCopy);
     setMismatched(mismatchedCopy);
+    setMoves(moves + 1);
   };
 
   useEffect(() => {
@@ -58,15 +62,18 @@ const Game = ({ children }) => {
   };
 
   return (
-    <div className="Game">
-      {tiles.map((tile, index) => (
-        <Tile key={index} clickHandler={onClick} id={index} {...tile}>
-          {tile.status !== "down" ? (
-            <FontAwesomeIcon icon={tile.value} />
-          ) : null}
-        </Tile>
-      ))}
-    </div>
+    <>
+      <Stat moves={moves} won={won} />
+      <div className="Game">
+        {tiles.map((tile, index) => (
+          <Tile key={index} clickHandler={onClick} id={index} {...tile}>
+            {tile.status !== "down" ? (
+              <FontAwesomeIcon icon={tile.value} />
+            ) : null}
+          </Tile>
+        ))}
+      </div>
+    </>
   );
 };
 
@@ -82,4 +89,10 @@ function checkOpenedTiles(tile1Id, tile2Id, tilesCopy, mismatched) {
     mismatched.push(tile1Id);
     mismatched.push(tile2Id);
   }
+}
+
+function checkWin(tiles) {
+  return (
+    tiles.reduce((sum, el) => sum + (el.status === "matched" ? 1 : 0), 0) === 16
+  );
 }

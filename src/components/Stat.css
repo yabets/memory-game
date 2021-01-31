@@ -1,0 +1,14 @@
+.Stat {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.Stat__moves {
+  display: inline-block;
+  padding: 0 1rem;
+}
+
+.Stat__stopwatch {
+  display: inline-block;
+  padding: 0 1rem;
+}

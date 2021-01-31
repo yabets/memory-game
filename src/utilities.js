@@ -48,5 +48,4 @@ function shuffle(array) {
 const tile = (value) => ({
   status: "down",
   value: value,
-  matched: false,
 });
