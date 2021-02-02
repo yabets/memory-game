@@ -1,0 +1,60 @@
+.Modal__backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 50;
+}
+
+.Modal__main {
+  position: absolute;
+  top: 25vh;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80vw;
+  height: 50vh;
+  padding: 2rem;
+  background: white;
+  border-radius: 16px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Modal__congratulations--icon {
+  font-size: 6rem;
+  color: #a6ff00;
+}
+
+.Modal__description {
+  font-size: 1rem;
+}
+
+.Modal--button {
+  font-size: 2rem;
+  background-color: #47c3fc;
+  border: none;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 16px;
+  outline: none;
+}
+
+.Modal--button:hover,
+.Modal--button:active {
+  box-shadow: 5px 5px 5px #ccc;
+}
+
+@media (min-width: 640px) {
+  .Modal__main {
+    width: 60vw;
+    left: 20vw;
+    max-width: 24rem;
+  }
+}

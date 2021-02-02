@@ -3,6 +3,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Tile from "./Tile";
 import Stat from "./Stat";
+import Modal from "./Modal";
 import "./Game.css";
 import { generateTiles } from "../utilities";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -23,6 +24,8 @@ const Game = ({ children }) => {
   const [mismatched, setMismatched] = useState([]);
   const [moves, setMoves] = useState(0);
   const [won, setWon] = useState(false);
+  const [minutes, setMinute] = useState(0);
+  const [seconds, setSecond] = useState(0);
 
   const onClick = (id) => {
     if (mismatched.length === 2) return;
@@ -46,6 +49,22 @@ const Game = ({ children }) => {
   };
 
   useEffect(() => {
+    if (moves === 0) return;
+    const timer = setTimeout(updateTime, 1000);
+    return () => clearTimeout(timer);
+  });
+
+  const updateTime = () => {
+    if (won) return;
+    if (seconds === 60) {
+      setMinute(minutes + 1);
+      setSecond(0);
+    } else {
+      setSecond(seconds + 1);
+    }
+  };
+
+  useEffect(() => {
     if (mismatched.length === 2) removeMismatch();
   });
 
@@ -61,9 +80,20 @@ const Game = ({ children }) => {
     });
   };
 
+  const reset = () => {
+    setTiles(generateTiles());
+    setUptiles([]);
+    setMismatched([]);
+    setMoves(0);
+    setWon(0);
+    setMinute(0);
+    setSecond(0);
+  };
+
   return (
     <>
-      <Stat moves={moves} won={won} />
+      <Modal display={won} playAgain={reset} />
+      <Stat moves={moves} won={won} minutes={minutes} seconds={seconds} />
       <div className="Game">
         {tiles.map((tile, index) => (
           <Tile key={index} clickHandler={onClick} id={index} {...tile}>
