@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import "./Stat.css";
 
 const Stat = ({ moves, won, minutes, seconds }) => {
